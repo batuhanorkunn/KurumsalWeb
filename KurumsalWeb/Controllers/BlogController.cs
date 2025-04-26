@@ -18,5 +18,11 @@ namespace KurumsalWeb.Controllers
             db.Configuration.LazyLoadingEnabled = false;
             return View(db.Blog.Include("Kategori").ToList().OrderByDescending(x=>x.BlogId));
         }
+        public ActionResult Create()
+        {
+            ViewBag.KategoriId = new SelectList(db.Kategori, "KategoriId", "KategoriAd");
+            return View();
+        }
+        
     }
 }
