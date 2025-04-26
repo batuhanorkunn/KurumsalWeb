@@ -34,7 +34,7 @@ namespace KurumsalWeb.Controllers
                     WebImage img = new WebImage(ResimURL.InputStream);
                     FileInfo imginfo = new FileInfo(ResimURL.FileName);
 
-                    string logoname = ResimURL.FileName + imginfo.Extension;
+                    string logoname = Guid.NewGuid().ToString() + imginfo.Extension;
                     img.Resize(500, 500);
                     img.Save("~/Uploads/Hizmet/" + logoname);
 
@@ -65,9 +65,10 @@ namespace KurumsalWeb.Controllers
         [ValidateInput(false)]
         public ActionResult Edit(int? id, Hizmet hizmet, HttpPostedFileBase ResimURL)
         {
-            var h = db.Hizmet.Where(x=>x.HizmetId == id).FirstOrDefault();
+            
             if (ModelState.IsValid)
             {
+                var h = db.Hizmet.Where(x => x.HizmetId == id).SingleOrDefault();
                 if (ResimURL != null)
                 {
 
@@ -78,19 +79,38 @@ namespace KurumsalWeb.Controllers
                     WebImage img = new WebImage(ResimURL.InputStream);
                     FileInfo imginfo = new FileInfo(ResimURL.FileName);
 
-                    string logoname = ResimURL.FileName + imginfo.Extension;
+                    string hizmetname = Guid.NewGuid().ToString() + imginfo.Extension;
                     img.Resize(500, 500);
-                    img.Save("~/Uploads/Hizmet/" + logoname);
+                    img.Save("~/Uploads/Hizmet/" + hizmetname);
 
-                    h.ResimURL = "/Uploads/Hizmet/" + logoname;
+                    h.ResimURL = "/Uploads/Hizmet/" + hizmetname;
 
 
                 }
-                db.Entry(hizmet).State = EntityState.Modified;
+                h.Baslik=hizmet.Baslik;
+                h.Aciklama=hizmet.Aciklama;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View();
+        }
+        public ActionResult Delete(int id)
+        {
+            if (id==null)
+            {
+                return HttpNotFound();
+                
+            }
+            var h= db.Hizmet.Find(id);
+            if (h==null)
+            {
+                return HttpNotFound();
+                
+            }
+            db.Hizmet.Remove(h);
+            db.SaveChanges();
+            return RedirectToAction("Index");
+          
         }
 
     }
