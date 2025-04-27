@@ -1,20 +1,26 @@
-﻿
+﻿@model KurumsalWeb.Models.Model.Blog
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>Blog Kayıt Ekle</h2>
-
+<h2>Kategori Düzenle</h2>
+<style>
+    textarea {
+        width: 500px;
+        height: 100px;
+        resize:none;
+    }
+</style>
 <div class="form">
     @*<form class="form-validate form-horizontal" id="feedback_form" method="post" action="/Blog/Create/" enctype="multipart/form-data">*@
-    @using (Html.BeginForm("Create","Blog",FormMethod.Post,new {enctype="multipart/form-data"}))
+    @using (Html.BeginForm("Edit", "Blog", FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken();
         <div class="form-group ">
             <label for="cname" class="control-label col-lg-2">Başlık <span class="required">*</span></label>
             <div class="col-lg-10">
-                <input class="form-control" id="Baslik" name="Baslik" minlength="5" type="text" required />
+                <input class="form-control" id="Baslik" name="Baslik" minlength="5" type="text" required value="@Model.Baslik" />
             </div>
         </div>
         <div class="form-group ">
@@ -26,7 +32,13 @@
         <div class="form-group ">
             <label for="cemail" class="control-label col-lg-2">İçerik <span class="required">*</span></label>
             <div class="col-lg-10">
-                <input class="form-control " id="İcerik" type="text" name="İcerik" required />
+                <textarea class="ckeditor" name="Icerik">@Model.Icerik</textarea>
+            </div>
+        </div>
+        <div class="form-group ">
+            <label for="curl" class="control-label col-lg-2">Önceki Resim</label>
+            <div class="col-lg-10">
+                <img src="@Model.ResimURL " width="150" height="100" />
             </div>
         </div>
         <div class="form-group ">

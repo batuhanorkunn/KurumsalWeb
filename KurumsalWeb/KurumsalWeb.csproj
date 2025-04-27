@@ -1200,6 +1200,7 @@
     <Content Include="Views\Kategori\Index.cshtml" />
     <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\Blog\Create.cshtml" />
+    <Content Include="Views\Blog\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -1210,6 +1211,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\AdminLayout\assets\jquery-file-upload\server\php\files\thumbnail\" />
+    <Folder Include="Uploads\Blog\" />
     <Folder Include="Uploads\Hizmet\" />
     <Folder Include="Uploads\Kimlik\" />
   </ItemGroup>
